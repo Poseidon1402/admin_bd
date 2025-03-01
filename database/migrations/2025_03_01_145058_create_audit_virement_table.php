@@ -22,10 +22,6 @@ return new class extends Migration
             $table->integer('montant_ancien');
             $table->integer('montant_nouv');
             $table->timestamps();
-
-            // Foreign key constraints (if necessary)
-            $table->foreign('numero_virement')->references('num_virements')->on('virements')->onDelete('cascade');
-            $table->foreign('numero_compte')->references('num_compte')->on('clients')->onDelete('cascade');
         });
     }
 

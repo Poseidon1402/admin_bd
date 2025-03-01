@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Virement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class VirementController extends Controller
@@ -17,9 +18,10 @@ class VirementController extends Controller
     }
 
     public function store(Request $request) {
+        $user = Auth::user();
         $virement = Virement::create([
-            'num_compte' => '0001',
-            'montant' => 500,
+            'num_compte' => $user->num_compte,
+            'montant' => $request->montant,
         ]);
 
         DB::table('audit_virement')->insert([
@@ -27,12 +29,15 @@ class VirementController extends Controller
             'date_operation' => now(),
             'numero_virement' => $virement->num_virements,
             'numero_compte' => '0001',
-            'nom_client' => 'Marie Curie',
+            'nom_client' => $user->nom,
             'date_virement' => now(),
-            'montant_ancien' => 800.00,
-            'montant_nouv' => 1200.00,
+            'montant_ancien' => $user->solde,
+            'montant_nouv' => $user->solde + $request->montant,
         ]);
 
+        $user->solde = $user->solde + $request->montant;
+        $user->save();
+        
         return redirect()->intended('/virements');
     }
 }

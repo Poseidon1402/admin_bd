@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ class LoginController extends Controller
     $credentials = $credentials = $request->only('email', 'password');
 
     // Attempt authentication with session persistence
-    if (Auth::attempt($credentials)) {
+    if (Auth::attempt($credentials, true)) {
         // Regenerate session for security
         $request->session()->regenerate();
         
@@ -43,7 +44,10 @@ class LoginController extends Controller
         ]);
 
         DB::table('users')->insert([
+            'num_compte' => (string) Str::Uuid(),
+            'nom' => $request->name,
             'email' => $request->email,
+            'solde' => 60000,
             'password' => Hash::make($request->password)
         ]);
         // Store subscription logic (e.g., save to the database or external API)

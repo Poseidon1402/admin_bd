@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('num_compte');
             $table->integer('montant');
 
-            $table->foreign('num_compte')->references('num_compte')->on('clients');
             $table->timestamps();
         });
     }

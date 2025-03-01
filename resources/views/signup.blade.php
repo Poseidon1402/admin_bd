@@ -24,13 +24,19 @@
 
             <!-- Email Address -->
             <div class="mb-4">
-                <label for="email" class="block text-sm font-medium text-gray-600">Email Address</label>
+                <label for="name" class="block text-sm font-medium text-gray-600">Nom</label>
+                <input type="text" name="name" id="name" value="{{ old('name') }}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="John Doe" required>
+            </div>
+
+            <!-- Email Address -->
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-600">Email</label>
                 <input type="email" name="email" id="email" value="{{ old('email') }}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="you@example.com" required>
             </div>
 
             <!-- Password -->
             <div class="mb-6">
-                <label for="password" class="block text-sm font-medium text-gray-600">Password</label>
+                <label for="password" class="block text-sm font-medium text-gray-600">Mot de passe</label>
                 <input type="password" name="password" id="password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
             </div>
 
