@@ -11,19 +11,22 @@ class LoginController extends Controller
 {
     public function authenticate(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
- 
+    // Validate incoming request
+    $credentials = $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], true)) { 
-            return redirect()->intended('dashboard');
-        }
- 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+    // Attempt authentication with session persistence
+    if (Auth::attempt($credentials)) {
+        // Regenerate session for security
+        $request->session()->regenerate();
+        
+        // Redirect to the intended page or default dashboard
+        return redirect()->route('virements_list');
+    }
+
+    // If authentication fails, return back with an error message
+    return back()->withErrors([
+        'email' => 'The provided credentials do not match our records.',
+    ])->onlyInput('email');
     }
 
     public function subscribe()
@@ -41,7 +44,7 @@ class LoginController extends Controller
 
         DB::table('users')->insert([
             'email' => $request->email,
-            'password' => Hash::make($request->newPassword)
+            'password' => Hash::make($request->password)
         ]);
         // Store subscription logic (e.g., save to the database or external API)
         // Here, we're just returning a success message for simplicity

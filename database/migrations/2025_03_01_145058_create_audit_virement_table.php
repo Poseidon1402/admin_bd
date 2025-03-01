@@ -24,7 +24,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign key constraints (if necessary)
-            $table->foreeign('numero_virement')->references('num_virements')->on('virements')->onDelete('cascade');
+            $table->foreign('numero_virement')->references('num_virements')->on('virements')->onDelete('cascade');
             $table->foreign('numero_compte')->references('num_compte')->on('clients')->onDelete('cascade');
         });
     }
