@@ -18,4 +18,6 @@ Route::get('/virements', [VirementController::class, 'lists'])->name('virements_
 
 Route::post('/virements', [VirementController::class, 'store'])->name('store_virement')->middleware(['auth.session']);
 
+Route::get('/virement/{numVirements}', [VirementController::class, 'delete'])->name('delete_virement')->middleware(['auth.session']);
+
 Route::get('/audit_virements', [AuditVirementController::class, 'lists'])->name('audit_virement_list')->middleware(['auth.session']);

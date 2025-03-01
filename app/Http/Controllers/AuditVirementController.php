@@ -11,7 +11,10 @@ class AuditVirementController extends Controller
         $auditVirements = DB::table('audit_virement')->get();
 
         return view('audit_virements', [
-            'virements' => $auditVirements
+            'virements' => $auditVirements,
+            'ajout' => $auditVirements->groupBy('type_action')->has('ajout') ? $auditVirements->groupBy('type_action')['ajout']->count() : 0,
+            'modification' => $auditVirements->groupBy('type_action')->has('modification') ? $auditVirements->groupBy('type_action')->get('modification')->count() : 0,
+            'suppression' => $auditVirements->groupBy('type_action')->has('suppression') ? $auditVirements->groupBy('type_action')->get('suppression')->count() : 0
         ]);
     }
 }

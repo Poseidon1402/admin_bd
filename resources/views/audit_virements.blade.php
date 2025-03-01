@@ -38,8 +38,7 @@
             <thead>
                 <tr class="bg-gray-100">
                     <th class="py-2 px-4 text-left text-sm font-semibold text-gray-600">Type</th>
-                    <th class="py-2 px-4 text-left text-sm font-semibold text-gray-600">Numéro virement</th>
-                    <th class="py-2 px-4 text-left text-sm font-semibold text-gray-600">Numéro compte</th>
+                    <th class="py-2 px-4 text-left text-sm font-semibold text-gray-600">Date de virement</th>
                     <th class="py-2 px-4 text-left text-sm font-semibold text-gray-600">Montant ancien</th>
                     <th class="py-2 px-4 text-left text-sm font-semibold text-gray-600">Montant nouveau</th>
                 </tr>
@@ -48,14 +47,20 @@
                 @foreach ($virements as $virement)
                     <tr class="border-b hover:bg-gray-50">
                         <td class="py-2 px-4 text-sm">{{ $virement->type_action }}</td>
-                        <td class="py-2 px-4 text-sm">{{ $virement->numero_virement }}</td>
-                        <td class="py-2 px-4 text-sm">{{ $virement->numero_compte }}</td>
+                        <td class="py-2 px-4 text-sm">{{ \Carbon\Carbon::parse($virement->date_virement)->format('d/m/Y H:i') }}</td>
                         <td class="py-2 px-4 text-sm">{{ $virement->montant_ancien }}</td>
                         <td class="py-2 px-4 text-sm">{{ $virement->montant_nouv }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+
+        <!-- Action Counts -->
+<div class="mt-4 text-sm text-gray-600">
+    <p>Total Updates: {{ $modification }}</p>
+    <p>Total Deletes: {{ $suppression }}</p>
+    <p>Total Inserts: {{ $ajout }}</p>
+</div>
     </div>
 
 </body>

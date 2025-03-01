@@ -28,7 +28,7 @@ class VirementController extends Controller
             'type_action' => 'ajout',
             'date_operation' => now(),
             'numero_virement' => $virement->num_virements,
-            'numero_compte' => '0001',
+            'numero_compte' => $user->num_compte,
             'nom_client' => $user->nom,
             'date_virement' => now(),
             'montant_ancien' => $user->solde,
@@ -37,6 +37,26 @@ class VirementController extends Controller
 
         $user->solde = $user->solde + $request->montant;
         $user->save();
+        
+        return redirect()->intended('/virements');
+    }
+
+    public function delete(int $numVirements) {
+        $user = Auth::user();
+
+        DB::table('audit_virement')->insert([
+            'type_action' => 'suppression',
+            'date_operation' => now(),
+            'numero_virement' => $numVirements,
+            'numero_compte' => $user->num_compte,
+            'nom_client' => $user->nom,
+            'date_virement' => now(),
+            'montant_ancien' => $user->solde,
+            'montant_nouv' => $user->solde,
+        ]);
+
+        $virement = Virement::find($numVirements);
+        $virement->delete();
         
         return redirect()->intended('/virements');
     }
