@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuditVirementController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\VirementController;
 use Illuminate\Support\Facades\Route;
@@ -17,3 +18,4 @@ Route::get('/virements', [VirementController::class, 'lists'])->name('virements_
 
 Route::post('/virements', [VirementController::class, 'store'])->name('store_virement');
 
+Route::get('/audit_virements', [AuditVirementController::class, 'lists'])->name('audit_virement_list');
