@@ -66,7 +66,7 @@
                             </td>
                         </tr>
                         <!-- Update Virement Modal -->
-                        <div id="virementModalUpdate-{{$virement->num_virements}}" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+                        <div id="virementModalUpdate-{{$virement->num_virements}}" class="fixed inset-0 bg-black/40 flex items-center justify-center hidden">
                             <div class="bg-white p-6 rounded-lg shadow-lg w-96">
                                 <h2 class="text-xl font-bold text-indigo-600 mb-4">Modifier Virement</h2>
                                 <form action="{{route('update_virement', ['numVirement' => $virement->num_virements])}}" method="POST">
