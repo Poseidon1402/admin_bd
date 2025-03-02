@@ -59,7 +59,7 @@
                             <button id="updateBtn" class="bg-yellow-500 text-white py-1 px-3 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500" onclick="showUpdateModal({{$virement->num_virements}})">
                                 Modifier
                             </button>
-                            <a href="{{ route('delete_virement', ['numVirements' => $virement->num_virements]) }}">
+                            <a href="{{ route('delete_virement', ['numVirements' => $virement->num_virements, 'montant' => $virement->montant]) }}">
                                 <button class="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-yellow-500">
                                     Supprimer
                                 </button>

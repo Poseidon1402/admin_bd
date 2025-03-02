@@ -41,7 +41,7 @@ class VirementController extends Controller
         return redirect()->intended('/virements');
     }
 
-    public function delete(int $numVirements) {
+    public function delete(int $numVirements, int $montant) {
         $user = Auth::user();
 
         DB::table('audit_virement')->insert([
@@ -52,11 +52,14 @@ class VirementController extends Controller
             'nom_client' => $user->nom,
             'date_virement' => now(),
             'montant_ancien' => $user->solde,
-            'montant_nouv' => $user->solde,
+            'montant_nouv' => $user->solde - $montant,
         ]);
 
         $virement = Virement::find($numVirements);
         $virement->delete();
+
+        $user->solde = $user->solde - $montant;
+        $user->save();
         
         return redirect()->intended('/virements');
     }
