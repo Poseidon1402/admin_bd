@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virements List</title>
     @vite(['resources/css/app.css'])
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-gray-100 flex">
 
@@ -12,7 +13,6 @@
     <div class="w-64 bg-indigo-900 text-white h-screen p-5 fixed">
         <h2 class="text-xl font-bold mb-6">Dashboard</h2>
         <ul>
-            
             <li class="mb-4">
                 <a href="{{ route('virements_list') }}" class="block p-2 hover:bg-indigo-700 rounded">💸 Virements</a>
             </li>
@@ -55,13 +55,40 @@
             </tbody>
         </table>
 
-        <!-- Action Counts -->
-<div class="mt-4 text-sm text-gray-600">
-    <p>Total Modifications: {{ $modification }}</p>
-    <p>Total Suppression: {{ $suppression }}</p>
-    <p>Total Insertion: {{ $ajout }}</p>
-</div>
+        <!-- Chart Container -->
+        <div class="mt-8 flex flex-col items-center">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Statistiques des actions</h2>
+            <canvas id="actionsChart" class="w-96 h-96"></canvas>
+        </div>
     </div>
+
+    <!-- Pass PHP Data to JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById('actionsChart').getContext('2d');
+            const data = {
+                labels: ["Modifications", "Suppressions", "Insertions"],
+                datasets: [{
+                    data: ["{{ $modification }}", "{{ $suppression }}", "{{ $ajout }}"],
+                    backgroundColor: ["#f39c12", "#e74c3c", "#2ecc71"],
+                    hoverBackgroundColor: ["#e67e22", "#c0392b", "#27ae60"]
+                }]
+            };
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    responsive: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

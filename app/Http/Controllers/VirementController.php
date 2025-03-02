@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class VirementController extends Controller
 {
     public function lists() {
-        $virements = DB::table('virements')->get();
+        $virements = DB::table('virements')->where('num_compte', '=', Auth::user()->num_compte)->get();
 
         return view('virements', [
             'virements' => $virements

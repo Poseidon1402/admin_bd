@@ -26,8 +26,8 @@ class LoginController extends Controller
 
     // If authentication fails, return back with an error message
     return back()->withErrors([
-        'email' => 'The provided credentials do not match our records.',
-    ])->onlyInput('email');
+        'email' => 'Email ou mot de passe invalide ! Veuillez réessayer',
+    ]);
     }
 
     public function subscribe()
