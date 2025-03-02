@@ -60,4 +60,30 @@ class VirementController extends Controller
         
         return redirect()->intended('/virements');
     }
+
+    public function update(Request $request, $num_virement)
+    {
+        $virement = Virement::find($num_virement);
+        $virement->montant = $request->montant;
+        $ancienMontant = $request->montant_ancien;
+        $virement->save();
+
+        $user = Auth::user();
+        
+        DB::table('audit_virement')->insert([
+            'type_action' => 'modification',
+            'date_operation' => now(),
+            'numero_virement' => $virement->num_virements,
+            'numero_compte' => $user->num_compte,
+            'nom_client' => $user->nom,
+            'date_virement' => now(),
+            'montant_ancien' => $user->solde,
+            'montant_nouv' => $user->solde - $ancienMontant + $request->montant,
+        ]);
+
+        $user->solde = $user->solde - $ancienMontant + $request->montant;
+        $user->save();
+
+        return redirect()->route('virements_list')->with('success', 'Virement modifié avec succès.');
+    }
 }

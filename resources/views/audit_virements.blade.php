@@ -57,9 +57,9 @@
 
         <!-- Action Counts -->
 <div class="mt-4 text-sm text-gray-600">
-    <p>Total Updates: {{ $modification }}</p>
-    <p>Total Deletes: {{ $suppression }}</p>
-    <p>Total Inserts: {{ $ajout }}</p>
+    <p>Total Modifications: {{ $modification }}</p>
+    <p>Total Suppression: {{ $suppression }}</p>
+    <p>Total Insertion: {{ $ajout }}</p>
 </div>
     </div>
 
