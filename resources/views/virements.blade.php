@@ -15,9 +15,6 @@
             <li class="mb-4">
                 <a href="{{ route('virements_list') }}" class="block p-3 hover:bg-indigo-700 rounded transition">💸 Virements</a>
             </li>
-            <li class="mb-4">
-                <a href="{{ route('audit_virement_list') }}" class="block p-3 hover:bg-indigo-700 rounded transition">📊 Audit virements</a>
-            </li>
         </ul>
     </div>
 

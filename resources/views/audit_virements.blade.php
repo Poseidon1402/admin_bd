@@ -19,9 +19,6 @@
         <h2 class="text-2xl font-semibold mb-8">Dashboard</h2>
         <ul>
             <li class="mb-6">
-                <a href="{{ route('virements_list') }}" class="block p-3 hover:bg-indigo-800 rounded-lg transition duration-300">💸 Virements</a>
-            </li>
-            <li class="mb-6">
                 <a href="{{ route('audit_virement_list') }}" class="block p-3 hover:bg-indigo-800 rounded-lg transition duration-300">📊 Audit Virements</a>
             </li>
         </ul>
@@ -45,6 +42,7 @@
                     <tr class="bg-gray-50 border-b">
                         <th class="py-3 px-6 text-left text-gray-600 font-medium">Type</th>
                         <th class="py-3 px-6 text-left text-gray-600 font-medium">Date de Virement</th>
+                        <th class="py-3 px-6 text-left text-gray-600 font-medium">Numéro compte</th>
                         <th class="py-3 px-6 text-left text-gray-600 font-medium">Montant Ancien</th>
                         <th class="py-3 px-6 text-left text-gray-600 font-medium">Montant Nouveau</th>
                     </tr>
@@ -54,6 +52,7 @@
                         <tr class="border-b hover:bg-gray-100">
                             <td class="py-3 px-6">{{ $virement->type_action }}</td>
                             <td class="py-3 px-6">{{ \Carbon\Carbon::parse($virement->date_virement)->format('d/m/Y H:i') }}</td>
+                            <td class="py-3 px-6">{{ $virement->numero_compte }}</td>
                             <td class="py-3 px-6">{{ $virement->montant_ancien }}</td>
                             <td class="py-3 px-6">{{ $virement->montant_nouv }}</td>
                         </tr>

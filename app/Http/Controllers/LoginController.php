@@ -20,6 +20,12 @@ class LoginController extends Controller
         // Regenerate session for security
         $request->session()->regenerate();
         
+        $user = DB::table('users')->where('email', '=', $request->email)->first();
+
+        if($user->isAdmin) {
+            return redirect()->route('audit_virement_list');
+        }
+
         // Redirect to the intended page or default dashboard
         return redirect()->route('virements_list');
     }
